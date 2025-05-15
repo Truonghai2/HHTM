@@ -66,9 +66,13 @@ RUN apt-get update && apt-get install -y nodejs npm
 
 COPY ./deploy/php-fpm.conf /usr/local/etc/php-fpm.d/zzz-custom.conf
 
+COPY ./deploy/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PORT=8080
 
 # Expose port 9000 and start php-fpm server (for FastCGI Process Manager)
 EXPOSE 8080
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
