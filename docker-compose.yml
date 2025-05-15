@@ -17,7 +17,8 @@ services:
         depends_on:
             db:
                 condition: service_healthy
-
+        expose:
+            - 9000
     db:
         image: "mysql:latest"
         container_name: db_httm
@@ -54,6 +55,9 @@ services:
             - sail
 
     nginx:
+        environment:
+            PORT: 8001
+
         image: nginx:1.23.0-alpine
         container_name: nginx_httm
         ports:

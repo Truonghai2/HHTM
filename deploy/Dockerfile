@@ -64,8 +64,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN apt-get update && apt-get install -y nodejs npm
 
+COPY ./deploy/php-fpm.conf /usr/local/etc/php-fpm.d/zzz-custom.conf
+
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Expose port 9000 and start php-fpm server (for FastCGI Process Manager)
 EXPOSE 8080
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
