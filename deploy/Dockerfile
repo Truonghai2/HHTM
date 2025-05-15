@@ -8,6 +8,7 @@ WORKDIR /var/www/html/httm/
 
 # Install dependencies for the operating system software
 RUN apt-get update && apt-get install -y \
+    nginx \
     build-essential \
     libpng-dev \
     libxml2-dev \
@@ -43,6 +44,9 @@ RUN docker-php-ext-install gd
 COPY . /var/www/html/httm
 ADD ./deploy/custom_php.ini /usr/local/etc/php/conf.d/custom_php.ini
 
+# Copy nginx configuration
+COPY ./deploy/nginx.conf /etc/nginx/conf.d/default.conf
+
 # Create necessary directories and set permissions
 RUN mkdir -p /var/www/html/httm/api-docs
 
@@ -63,4 +67,5 @@ RUN apt-get update && apt-get install -y nodejs npm
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Expose port 9000 and start php-fpm server (for FastCGI Process Manager)
-EXPOSE 9000
+EXPOSE 8080
+CMD ["/usr/bin/supervisord"]
