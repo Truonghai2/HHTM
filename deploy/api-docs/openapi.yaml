@@ -9,7 +9,6 @@ servers:
   - url: http://dev.device-management.cssoft.jp
 
 paths:
-
   /api/login:
     post:
       tags:
@@ -22,20 +21,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LoginRequest'
+              $ref: "#/components/schemas/LoginRequest"
       responses:
-        '200':
+        "200":
           description: Successful login
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LoginResponse'
-        '401':
+                $ref: "#/components/schemas/LoginResponse"
+        "401":
           description: Invalid credentials
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponseLogin'
+                $ref: "#/components/schemas/ErrorResponseLogin"
 
   /api/logout:
     get:
@@ -47,24 +46,24 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        '200':
+        "200":
           description: Successful logout
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MessageResponse'
-        '401':
+                $ref: "#/components/schemas/MessageResponse"
+        "401":
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponseLogout'
-        '405':
+                $ref: "#/components/schemas/ErrorResponseLogout"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponseLogout'
+                $ref: "#/components/schemas/ErrorResponseLogout"
   /api/v1/devices:
     post:
       tags:
@@ -137,7 +136,7 @@ paths:
                 - location
                 - image
       responses:
-        '200':
+        "200":
           description: Device created successfully
           content:
             application/json:
@@ -147,7 +146,7 @@ paths:
                   message:
                     type: string
                     example: Thêm thiết bị thành công
-        '422':
+        "422":
           description: Validation error
           content:
             application/json:
@@ -190,7 +189,7 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: Device details retrieved successfully
           content:
             application/json:
@@ -286,7 +285,7 @@ paths:
                           type: string
                           format: date-time
                           example: "2025-05-07T04:05:26.000000Z"
-        '404':
+        "404":
           description: Device not found
           content:
             application/json:
@@ -295,7 +294,7 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: Thiết bị không tồn tại     
+                    example: Thiết bị không tồn tại
 
     put:
       tags:
@@ -374,7 +373,7 @@ paths:
                 - status
                 - location
       responses:
-        '200':
+        "200":
           description: Device updated successfully
           content:
             application/json:
@@ -384,7 +383,7 @@ paths:
                   message:
                     type: string
                     example: "Cập nhật thiết bị thành công"
-        '404':
+        "404":
           description: Device not found for editing
           content:
             application/json:
@@ -394,7 +393,7 @@ paths:
                   error:
                     type: string
                     example: "Thiết bị không tồn tại"
-        '422':
+        "422":
           description: Validation error
           content:
             application/json:
@@ -420,7 +419,6 @@ tags:
 
   - name: Device Management
     description: Operations related to device management
-
 
 components:
   securitySchemes:
@@ -486,7 +484,7 @@ components:
         error:
           type: string
           example: Thông tin không đúng, sai email hoặc mật khẩu
-          
+
     ErrorResponseLogout:
       type: object
       properties:
