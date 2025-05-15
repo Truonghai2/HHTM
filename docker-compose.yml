@@ -1,5 +1,10 @@
 services:
     app:
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:9000/ping"] # Kiểm tra trạng thái PHP-FPM
+            interval: 10s
+            timeout: 3s
+            retries: 3
         build:
             context: ./
             dockerfile: ./deploy/Dockerfile
@@ -10,7 +15,8 @@ services:
         networks:
             - sail
         depends_on:
-            - db
+            db:
+                condition: service_healthy
 
     db:
         image: "mysql:latest"
@@ -27,6 +33,11 @@ services:
             - ./db-data:/var/lib/mysql
         networks:
             - sail
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
 
     phpmyadmin:
         depends_on:
@@ -53,7 +64,8 @@ services:
         networks:
             - sail
         depends_on:
-            - app
+            app:
+                condition: service_healthy
 
 networks:
     sail:
