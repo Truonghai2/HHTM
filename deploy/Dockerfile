@@ -63,5 +63,4 @@ RUN apt-get update && apt-get install -y nodejs npm
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Expose port 9000 and start php-fpm server (for FastCGI Process Manager)
-EXPOSE ${PORT}
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=${PORT}"]
+EXPOSE 9000
