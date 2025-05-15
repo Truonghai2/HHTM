@@ -51,8 +51,9 @@ RUN chown -R www-data:www-data \
         /var/www/html/httm/storage \
         /var/www/html/httm/bootstrap/cache
 
-RUN chmod -R 775 /var/www/html/httm/storage \
-        && chmod -R 775 /var/www/html/httm/api-docs
+RUN chown -R www-data:www-data /var/www/html/httm/storage \
+    && chmod -R 775 /var/www/html/httm/storage \
+    && chmod -R 775 /var/www/html/httm/bootstrap/cache
 
 # Install composer (php package manager)
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
