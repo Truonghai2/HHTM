@@ -61,7 +61,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN apt-get update && apt-get install -y nodejs npm
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV PORT=8001
 
-# Expose port 9000 and start php-fpm server (for FastCGI Process Manager)
-EXPOSE 9000
-CMD ["/usr/bin/supervisord"]
+EXPOSE ${PORT}
+CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT}"]
+
+# # Expose port 9000 and start php-fpm server (for FastCGI Process Manager)
+# EXPOSE 9000
+# CMD ["/usr/bin/supervisord"]
