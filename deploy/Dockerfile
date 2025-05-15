@@ -44,6 +44,9 @@ RUN docker-php-ext-install gd
 COPY . /var/www/html/httm
 ADD ./deploy/custom_php.ini /usr/local/etc/php/conf.d/custom_php.ini
 
+# Copy nginx configuration
+COPY ./deploy/nginx.conf /etc/nginx/conf.d/default.conf
+
 # Create necessary directories and set permissions
 RUN mkdir -p /var/www/html/httm/api-docs
 
